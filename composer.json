@@ -1,0 +1,23 @@
+{
+    "name": "finderly/openapi-php-lib",
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Finderly\\OpenapiPhpLib\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Finderly\\OpenapiPhpLib\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Tyler Ashton",
+            "email": "tdashton@gmail.com"
+        }
+    ],
+    "require": {}
+}
