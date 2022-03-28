@@ -25,7 +25,7 @@
         }
     ],
     "scripts":{
-        "phpunit": "phpunit && phpstan analyze src/",
+        "phpunit": "phpunit",
         "phpstan": "phpstan analyze src/"
     }
 }

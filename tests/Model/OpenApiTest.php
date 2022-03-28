@@ -20,6 +20,14 @@ class OpenApiTest extends TestCase
         $this->assertTrue($openApi instanceof OpenApi);
     }
 
+    public function testIsArrayable(): void
+    {
+        $openApi = new OpenApi();
+
+        $this->assertTrue($openApi instanceof ArrayableInterface);
+        $this->assertTrue(method_exists($openApi, 'toArray'));
+    }
+
     public function testGetOpenApiObjectInfoAndVersionDefault(): void
     {
         $openApi = new OpenApi();
@@ -71,5 +79,22 @@ class OpenApiTest extends TestCase
         $this->assertEquals('original summary', $openApi->getPathItem('/test/')->getSummary());
         $openApi->addPathItem('/test/', (new PathItem())->setSummary('new summary'));
         $this->assertEquals('new summary', $openApi->getPathItem('/test/')->getSummary());
+    }
+
+    public function testOpenApiObjectToArray(): void
+    {
+        $openApi = new OpenApi();
+
+        $this->assertEquals(
+            [
+                "openapi" => "3.1.0",
+                "info" => [
+                    "title" => "Shpock API / OpenAPI Adapter",
+                    "version" => "0.0.9"
+                ],
+                'components' => [],
+            ],
+            $openApi->toArray()
+        );
     }
 }
