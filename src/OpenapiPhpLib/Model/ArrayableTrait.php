@@ -9,29 +9,24 @@ use Finderly\OpenapiPhpLib\Model\Exception\InvalidModelException;
 trait ArrayableTrait
 {
     /**
-     * @return bool
      * @throws InvalidModelException
      */
-    public function areModelPropertiesValid(): bool
+    public function areModelPropertiesValid(): void
     {
         if (!isset($this->__openApiProperties) || !is_array($this->__openApiProperties)) {
             throw new \DomainException('You can only trait classes that have defined __openApiProperties');
         }
 
-        $invalidFields = array_values(
-            array_filter(
-                $this->__openApiProperties,
-                function (array $property): bool {
-                    return !$this->isPropertyValid($property);
-                }
-            )
+        $invalidFields = array_filter(
+            $this->__openApiProperties,
+            function (array $property): bool {
+                return !$this->isPropertyValid($property);
+            }
         );
 
         if (count($invalidFields) !== 0) {
-            throw new InvalidModelException(self::class, $invalidFields);
+            throw new InvalidModelException(self::class, array_values($invalidFields));
         }
-
-        return true;
     }
 
     /**
@@ -56,9 +51,7 @@ trait ArrayableTrait
      */
     public function toArray(): array
     {
-        if (!$this->areModelPropertiesValid()) {
-            throw new \DomainException('Model definition is invalid');
-        }
+        $this->areModelPropertiesValid();
 
         $ret = [];
         foreach ($this->__openApiProperties as $propertyDefinition) {
@@ -99,9 +92,7 @@ trait ArrayableTrait
      */
     protected function getValue(array $propertyDefinition)
     {
-        if (!$this->areModelPropertiesValid()) {
-            throw new \DomainException('Model definition is invalid');
-        }
+        $this->areModelPropertiesValid();
 
         $propertyName = $propertyDefinition['name'];
         $propertyType = $propertyDefinition['type'];

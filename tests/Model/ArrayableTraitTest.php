@@ -23,7 +23,8 @@ class ArrayableTraitTest extends TestCase
     {
         $model = new ArrayableTraitTestValidModel();
 
-        $this->assertTrue($model->areModelPropertiesValid());
+        $model->areModelPropertiesValid();
+        $this->assertTrue(true);
     }
 
     public function testIsModelInvalid(): void
