@@ -8,13 +8,19 @@ on:
 
 jobs:
   build:
-
+    strategy:
+      matrix:
+        php-versions: [ 7.3, 7.4, 8.0, 8.1 ]
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-versions }}
 
-    - name: Validate composer.json and composer.lock
+    - uses: actions/checkout@v3
+
+    - name: Validate composer.json
       run: composer validate --strict
 
     - name: Cache Composer packages
@@ -27,13 +33,13 @@ jobs:
           ${{ runner.os }}-php-
 
     - name: Install dependencies
-      run: composer install --prefer-dist --no-progress
+      run: composer install --prefer-dist --no-progress --no-interaction
 
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
 
     - name: Run test suite
-      run: composer run-script phpunit
+      run: XDEBUG_MODE=coverage vendor/bin/phpunit -c phpunit.xml --testsuite=unit
 
     - name: Run phpstan suite
       run: composer run-script phpstan
