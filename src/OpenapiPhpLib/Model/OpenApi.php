@@ -54,14 +54,14 @@ class OpenApi implements ArrayableInterface
     /**
      * @var \Finderly\OpenapiPhpLib\Model\Component\Components
      */
-    public $components;
+    protected $components;
 
     /**
      * @see https://spec.openapis.org/oas/v3.1.0.html#paths-object
      *
      * @var \Finderly\OpenapiPhpLib\Model\Path\PathItem
      */
-    public $paths;
+    protected $paths;
 
     /**
      * OpenApi constructor.
@@ -81,16 +81,54 @@ class OpenApi implements ArrayableInterface
     }
 
     /**
+     * @return string
+     */
+    public function getOpenApi(): string
+    {
+        return $this->openapi;
+    }
+
+    /**
+     * @return array
+     */
+    public function getInfo(): array
+    {
+        return $this->info;
+    }
+
+    /**
+     * @return array
+     */
+    public function getComponents(): Components
+    {
+        return $this->components;
+    }
+
+    /**
+     * @param string $urlPath
+     * @return bool
+     */
+    public function hasPathItem(string $urlPath): bool
+    {
+        return isset($this->paths[$urlPath]);
+    }
+
+    /**
+     * @param string $urlPath
+     * @return null|PathItem
+     */
+    public function getPathItem(string $urlPath): ?PathItem
+    {
+        return $this->paths[$urlPath] ?? null;
+    }
+
+    /**
      * @param string $urlPath
      * @param \Finderly\OpenapiPhpLib\Model\Path\PathItem $pathItem
      * @return self
      */
-    public function pushPathItem(string $urlPath, PathItem $pathItem): self
+    public function addPathItem(string $urlPath, PathItem $pathItem): self
     {
-        if (!isset($this->paths[$urlPath])) {
-            $this->paths[$urlPath] = [];
-        }
-
         $this->paths[$urlPath] = $pathItem;
 
         return $this;
