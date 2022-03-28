@@ -70,7 +70,7 @@ class SimpleSchema implements SchemaInterface, ArrayableInterface
             'type' => 'bool',
         ],
         [
-            'name' => 'default',
+            'name' => 'default', // @todo this should be dependent on the type
             'type' => 'mixed',
         ],
         [

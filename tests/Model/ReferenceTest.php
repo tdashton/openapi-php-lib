@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace Finderly\OpenapiPhpLib\Model;
 
-use Finderly\OpenapiPhpLib\Model\Component\Components;
-use Finderly\OpenapiPhpLib\Model\Path\PathItem;
 use PHPUnit\Framework\TestCase;
 
 /**
- * 
+ *
  */
 class ReferenceTest extends TestCase
 {

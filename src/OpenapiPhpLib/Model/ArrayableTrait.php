@@ -4,8 +4,36 @@ declare(strict_types=1);
 
 namespace Finderly\OpenapiPhpLib\Model;
 
+use Finderly\OpenapiPhpLib\Model\Exception\InvalidModelException;
+
 trait ArrayableTrait
 {
+    /**
+     * @return bool
+     * @throws InvalidModelException
+     */
+    public function areModelPropertiesValid(): bool
+    {
+        if (!isset($this->__openApiProperties) || !is_array($this->__openApiProperties)) {
+            throw new \DomainException('You can only trait classes that have defined __openApiProperties');
+        }
+
+        $invalidFields = array_values(
+            array_filter(
+                $this->__openApiProperties,
+                function (array $property): bool {
+                    return !$this->isPropertyValid($property);
+                }
+            )
+        );
+
+        if (count($invalidFields) !== 0) {
+            throw new InvalidModelException(self::class, $invalidFields);
+        }
+
+        return true;
+    }
+
     /**
      * @param array $propertyDefinition
      * @return bool
@@ -16,7 +44,53 @@ trait ArrayableTrait
             return false;
         }
 
+        if (!$this->isKnownPropertyDefinitionType($propertyDefinition['type'])) {
+            return false;
+        }
+
         return property_exists($this, $propertyDefinition['name']);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function toArray(): array
+    {
+        if (!$this->areModelPropertiesValid()) {
+            throw new \DomainException('Model definition is invalid');
+        }
+
+        $ret = [];
+        foreach ($this->__openApiProperties as $propertyDefinition) {
+            if (($res = $this->getValue($propertyDefinition)) !== null) {
+                $propertyName = $propertyDefinition['openApiName'] ?? $propertyDefinition['name'];
+
+                $ret[$propertyName] = $res;
+            }
+        }
+
+        return $ret;
+    }
+
+    /**
+     * @return bool
+     */
+    protected function isKnownPropertyDefinitionType(string $type): bool
+    {
+        return in_array(
+            $type,
+            [
+                'object[k,v]',
+                'object',
+                'object[]',
+                'string',
+                'mixed',
+                'int',
+                'bool',
+                'array',
+            ],
+            true
+        );
     }
 
     /**
@@ -25,17 +99,22 @@ trait ArrayableTrait
      */
     protected function getValue(array $propertyDefinition)
     {
+        if (!$this->areModelPropertiesValid()) {
+            throw new \DomainException('Model definition is invalid');
+        }
+
         $propertyName = $propertyDefinition['name'];
-        if (!$this->isPropertyValid($propertyDefinition)) {
+        $propertyType = $propertyDefinition['type'];
+        if (!$this->isKnownPropertyDefinitionType($propertyType)) {
             throw new \DomainException(
-                sprintf('The class "%s" property "%s" is invalid', get_class($this), $propertyName)
+                sprintf('Property type "%s" is unknown', $propertyType)
             );
         }
         if (is_null($this->{$propertyName}) || (is_array($this->{$propertyName}) && empty($this->{$propertyName}))) {
             return null;
         }
 
-        switch ($propertyDefinition['type']) {
+        switch ($propertyType) {
             case 'object[k,v]':
                 $ret = [];
                 foreach ($this->{$propertyName} as $key => $value) {
@@ -66,31 +145,11 @@ trait ArrayableTrait
                 return $this->{$propertyName};
                 break;
             default:
-                throw new \DomainException(
-                    sprintf('Property type "%s" is unknown', $propertyDefinition['type'])
+                // this case should never be reachable unless modifying this logic itself
+                throw new \LogicException(
+                    'You done broke the isKnownPropertyDefinitionType, you\'d better fix it up good now'
                 );
                 break;
         }
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function toArray(): array
-    {
-        if (!isset($this->__openApiProperties) || !is_array($this->__openApiProperties)) {
-            throw new \DomainException('You can only trait classes that have defined properties');
-        }
-
-        $ret = [];
-        foreach ($this->__openApiProperties as $propertyDefinition) {
-            if (($res = $this->getValue($propertyDefinition)) !== null) {
-                $propertyName = $propertyDefinition['openApiName'] ?? $propertyDefinition['name'];
-
-                $ret[$propertyName] = $res;
-            }
-        }
-
-        return $ret;
     }
 }

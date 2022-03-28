@@ -44,10 +44,6 @@ class ArraySchema implements SchemaInterface, ArrayableInterface
      */
     public static function createWithItems($items): self
     {
-        if (!($items instanceof SimpleSchema) && !($items instanceof Reference)) {
-            throw new \InvalidArgumentException('Items must be a SimpleSchema or Reference');
-        }
-
         $clazz = new self();
         $clazz->setItems($items);
 
@@ -87,6 +83,10 @@ class ArraySchema implements SchemaInterface, ArrayableInterface
      */
     public function setItems($items): self
     {
+        if (!($items instanceof SimpleSchema) && !($items instanceof Reference)) {
+            throw new \InvalidArgumentException('Items must be a SimpleSchema or Reference');
+        }
+
         $this->items = $items;
 
         return $this;
