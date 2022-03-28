@@ -1,6 +1,8 @@
 {
     "name": "finderly/openapi-php-lib",
     "description": "A PHP Library to assist in creation of OpenApi Specifications",
+    "type": "library",
+    "license": "MIT",
     "require-dev": {
         "phpunit/phpunit": "^9.5",
         "phpstan/phpstan": "^1.5",
