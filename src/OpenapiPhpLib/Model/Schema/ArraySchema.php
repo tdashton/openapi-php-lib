@@ -48,7 +48,7 @@ class ArraySchema implements SchemaInterface, ArrayableInterface
             throw new \InvalidArgumentException('Items must be a SimpleSchema or Reference');
         }
 
-        $clazz = new static();
+        $clazz = new self();
         $clazz->setItems($items);
 
         return $clazz;

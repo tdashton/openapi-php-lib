@@ -9,7 +9,6 @@ use Finderly\OpenapiPhpLib\Model\ArrayableTrait;
 use Finderly\OpenapiPhpLib\Model\Component\Parameter;
 use Finderly\OpenapiPhpLib\Model\Reference;
 use Finderly\OpenapiPhpLib\Model\Responses\Response;
-use Finderly\OpenapiPhpLib\Model\Responses\Responses;
 
 /**
  * @author Herr Tyler <tdashton@gmail.com>
@@ -171,10 +170,10 @@ class Operation implements ArrayableInterface
     }
 
     /**
-     * @param Responses $responses
+     * @param array $responses
      * @return Operation
      */
-    public function setResponses(Responses $responses): Operation
+    public function setResponses(array $responses): Operation
     {
         $this->responses = $responses;
 

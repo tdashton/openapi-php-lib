@@ -35,7 +35,7 @@ class MediaType implements ArrayableInterface
      */
     public static function createWithReference(Reference $reference): self
     {
-        $clazz = new static();
+        $clazz = new self();
         $clazz->schema = $reference;
 
         return $clazz;
