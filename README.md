@@ -2,11 +2,17 @@
 
 A PHP Library to assist in creation of OpenApi Specifications
 
+# Supported OpenApi Version
+
+[Version 3.1.0](https://spec.openapis.org/oas/v3.1.0.html).
+
 # Supported Output Formats
 
 Currently the library supports converting the OpenApi spec to an array which can easily be encoded as JSON in an endpoint or serialized for caching and later delivery as JSON.
 
 [Support for YAML](https://spec.openapis.org/oas/v3.1.0.html#format) as per the spec is not yet directly supported.
+
+
 
 # Variable Types
 
