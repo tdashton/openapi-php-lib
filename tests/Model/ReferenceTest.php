@@ -18,6 +18,13 @@ class ReferenceTest extends TestCase
         $this->assertTrue($obj instanceof Reference);
     }
 
+    public function testCreateReferenceIsInstanceOfReference(): void
+    {
+        $obj = Reference::create('test');
+
+        $this->assertTrue($obj instanceof Reference);
+    }
+
     public function testIsArrayable(): void
     {
         $obj = new Reference();

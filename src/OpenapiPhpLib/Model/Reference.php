@@ -33,7 +33,7 @@ class Reference implements ArrayableInterface
      */
     public static function create(string $reference, ?string $prefix = '#/components/schemas/')
     {
-        $clazz = new self();
+        $clazz = new static();
         if (empty($prefix)) {
             $clazz->setRef($reference);
         } else {
