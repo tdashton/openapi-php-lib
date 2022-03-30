@@ -27,11 +27,19 @@ class Reference implements ArrayableInterface
     ];
 
     /**
+     *
+     */
+    final public function __construct()
+    {
+        // so child classes cannot break the constructor
+    }
+
+    /**
      * @param string $reference
      * @param string|null $prefix
      * @return static
      */
-    public static function create(string $reference, ?string $prefix = '#/components/schemas/')
+    final public static function create(string $reference, ?string $prefix = '#/components/schemas/')
     {
         $clazz = new static();
         if (empty($prefix)) {
