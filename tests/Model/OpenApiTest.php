@@ -35,7 +35,7 @@ class OpenApiTest extends TestCase
         $openApi = new OpenApi();
         $this->assertEquals(
             [
-                'title' => 'Shpock API / OpenAPI Adapter',
+                'title' => 'Finderly API / OpenAPI Adapter',
                 'version' => '0.0.9',
             ],
             $openApi->getInfo()
@@ -91,7 +91,7 @@ class OpenApiTest extends TestCase
             [
                 "openapi" => "3.1.0",
                 "info" => [
-                    "title" => "Shpock API / OpenAPI Adapter",
+                    "title" => "Finderly API / OpenAPI Adapter",
                     "version" => "0.0.9"
                 ],
                 'components' => [],
@@ -115,7 +115,7 @@ class OpenApiTest extends TestCase
                 "openapi" => "3.1.0",
                 'servers' => [['url' => $url, 'description' => $description]],
                 "info" => [
-                    "title" => "Shpock API / OpenAPI Adapter",
+                    "title" => "Finderly API / OpenAPI Adapter",
                     "version" => "0.0.9"
                 ],
                 'components' => [],
@@ -139,7 +139,7 @@ class OpenApiTest extends TestCase
                 "openapi" => "3.1.0",
                 'license' => ['url' => $url, 'name' => $name],
                 "info" => [
-                    "title" => "Shpock API / OpenAPI Adapter",
+                    "title" => "Finderly API / OpenAPI Adapter",
                     "version" => "0.0.9"
                 ],
                 'components' => [],

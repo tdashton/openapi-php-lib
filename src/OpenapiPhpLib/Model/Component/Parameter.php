@@ -32,7 +32,7 @@ class Parameter implements ArrayableInterface
     protected $description;
 
     /**
-     * @var \Finderly\OpenapiPhpLib\Model\Schema\ObjectSchema|\Shpock\API\Component\OpenApi\Model\Reference
+     * @var \Finderly\OpenapiPhpLib\Model\Schema\ObjectSchema|\Finderly\OpenapiPhpLib\Model\Reference
      */
     protected $schema;
 
@@ -113,7 +113,7 @@ class Parameter implements ArrayableInterface
     }
 
     /**
-     * @return \Finderly\OpenapiPhpLib\Model\Schema\ObjectSchema|\Shpock\API\Component\OpenApi\Model\Reference
+     * @return \Finderly\OpenapiPhpLib\Model\Schema\ObjectSchema|\\Finderly\OpenapiPhpLib\Model\Reference
      */
     public function getSchema()
     {
@@ -121,7 +121,7 @@ class Parameter implements ArrayableInterface
     }
 
     /**
-     * @param \Finderly\OpenapiPhpLib\Model\Schema\ObjectSchema|\Shpock\API\Component\OpenApi\Model\Reference $schema
+     * @param \Finderly\OpenapiPhpLib\Model\Schema\ObjectSchema|\Finderly\OpenapiPhpLib\Model\Reference $schema
      * @return Parameter
      */
     public function setSchema($schema): Parameter
