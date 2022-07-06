@@ -77,6 +77,7 @@ trait ArrayableTrait
                 'object',
                 'object[]',
                 'string',
+                'string[]',
                 'mixed',
                 'int',
                 'bool',
@@ -138,7 +139,7 @@ trait ArrayableTrait
             default:
                 // this case should never be reachable unless modifying this logic itself
                 throw new \LogicException(
-                    'You done broke the isKnownPropertyDefinitionType, you\'d better fix it up good now'
+                    'You done broke ' . __FUNCTION__ . ', you\'d better fix it up good now'
                 );
                 break;
         }

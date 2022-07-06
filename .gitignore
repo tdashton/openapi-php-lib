@@ -1,5 +1,6 @@
 /vendor/
 .DS_Store
+.idea
 
 .phpunit.cache
 .phpunit.result.cache

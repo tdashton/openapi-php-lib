@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Finderly\OpenapiPhpLib\Model;
 
 use Finderly\OpenapiPhpLib\Model\Component\Components;
+use Finderly\OpenapiPhpLib\Model\License\License;
 use Finderly\OpenapiPhpLib\Model\Path\PathItem;
 use Finderly\OpenapiPhpLib\Model\Path\Paths;
+use Finderly\OpenapiPhpLib\Model\Server\Server;
 
 /**
  * @author Herr Tyler <tdashton@gmail.com>
@@ -25,6 +27,16 @@ class OpenApi implements ArrayableInterface
     protected $openapi;
 
     /**
+     * @var License
+     */
+    protected $license;
+
+    /**
+     * @var Server[]
+     */
+    protected $servers = [];
+
+    /**
      * @var array
      */
     protected $info = [
@@ -36,6 +48,14 @@ class OpenApi implements ArrayableInterface
         [
             'name' => 'openapi',
             'type' => 'string',
+        ],
+        [
+            'name' => 'license',
+            'type' => 'object',
+        ],
+        [
+            'name' => 'servers',
+            'type' => 'object[]',
         ],
         [
             'name' => 'info',
@@ -132,5 +152,54 @@ class OpenApi implements ArrayableInterface
         $this->paths[$urlPath] = $pathItem;
 
         return $this;
+    }
+
+    /**
+     * @param Server $server
+     * @return self
+     */
+    public function addServer(Server $server): self
+    {
+        $this->servers[] = $server;
+
+        return $this;
+    }
+
+    /**
+     * @param Server[] $servers
+     * @return OpenApi
+     */
+    public function setServers(array $servers): self
+    {
+        $this->servers = $servers;
+
+        return $this;
+    }
+
+    /**
+     * @return Server[]
+     */
+    public function getServers(): array
+    {
+        return $this->servers;
+    }
+
+    /**
+     * @param License $license
+     * @return OpenApi
+     */
+    public function setLicense(License $license): self
+    {
+        $this->license = $license;
+
+        return $this;
+    }
+
+    /**
+     * @return License
+     */
+    public function getLicense(): License
+    {
+        return $this->license;
     }
 }

@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace Finderly\OpenapiPhpLib\Model;
 
 use Finderly\OpenapiPhpLib\Model\Component\Components;
+use Finderly\OpenapiPhpLib\Model\License\License;
 use Finderly\OpenapiPhpLib\Model\Path\PathItem;
+use Finderly\OpenapiPhpLib\Model\Server\Server;
 use PHPUnit\Framework\TestCase;
 
 /**
- * 
+ *
  */
 class OpenApiTest extends TestCase
 {
@@ -88,6 +90,54 @@ class OpenApiTest extends TestCase
         $this->assertEquals(
             [
                 "openapi" => "3.1.0",
+                "info" => [
+                    "title" => "Shpock API / OpenAPI Adapter",
+                    "version" => "0.0.9"
+                ],
+                'components' => [],
+            ],
+            $openApi->toArray()
+        );
+    }
+
+    public function testOpenApiObjectWithServerToArray(): void
+    {
+        $url = 'http://someurl.com';
+        $description = 'zee description';
+
+        $openApi = new OpenApi();
+        $openApi->addServer(
+            (new Server())->setUrl($url)->setDescription($description)
+        );
+
+        $this->assertEquals(
+            [
+                "openapi" => "3.1.0",
+                'servers' => [['url' => $url, 'description' => $description]],
+                "info" => [
+                    "title" => "Shpock API / OpenAPI Adapter",
+                    "version" => "0.0.9"
+                ],
+                'components' => [],
+            ],
+            $openApi->toArray()
+        );
+    }
+
+    public function testOpenApiObjectWithLicenseToArray(): void
+    {
+        $url = 'http://someurl.com';
+        $name = 'zee name';
+
+        $openApi = new OpenApi();
+        $openApi->setLicense(
+            (new License())->setUrl($url)->setName($name)
+        );
+
+        $this->assertEquals(
+            [
+                "openapi" => "3.1.0",
+                'license' => ['url' => $url, 'name' => $name],
                 "info" => [
                     "title" => "Shpock API / OpenAPI Adapter",
                     "version" => "0.0.9"
