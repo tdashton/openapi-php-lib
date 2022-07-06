@@ -40,16 +40,20 @@ When rendering the spec these variable types are recursed. An `object` is recurs
 ```php
 // Class: MyDomainOpenApiGenerator.php
 
-public class MyDomainOpenApiGenerator(/* inject your dependencies here */) implements \Finderly\OpenapiPhpLib\OpenApiGenerator
+public class MyDomainOpenApiGenerator extends \Finderly\OpenapiPhpLib\OpenApiGenerator
 {
+    public function __construct(/* inject your dependencies here */) {}
+
     /**
      * your generation logic goes here, sample below
      * @return array
      */
     public function generateSpecification(): array
     {
+        $mySchemas = $myPaths = [/* your domain logic here to populate these vars */];
+
         $openApi = new \Finderly\OpenapiPhpLib\Model\OpenApi(
-        OpenApi::OPENAPI_VERSION,
+            \Finderly\OpenapiPhpLib\Model\OpenApi::OPENAPI_VERSION,
             ['title' => 'My Spec\'s title', 'version' => 'My spec\'s version']
         );
 
@@ -64,7 +68,7 @@ public class MyDomainOpenApiGenerator(/* inject your dependencies here */) imple
 
         foreach ($myPaths as $myPath) {
             // $myPath is your domain logic
-            $pathItem = new PathItem();
+            $pathItem = new \Finderly\OpenapiPhpLib\Model\Path\PathItem();
             $pathItem->setParameters(
                 $myPath->translateToOpenapiPhpLibParameters()
             );
