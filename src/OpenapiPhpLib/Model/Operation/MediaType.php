@@ -18,7 +18,7 @@ class MediaType implements ArrayableInterface
     use ArrayableTrait;
 
     /**
-     * @var \Finderly\OpenapiPhpLib\Model\Schema\ObjectSchema|\Shpock\API\Component\OpenApi\Model\Reference
+     * @var \Finderly\OpenapiPhpLib\Model\Schema\ObjectSchema|\Finderly\OpenapiPhpLib\Model\Reference
      */
     protected $schema;
 
@@ -42,7 +42,7 @@ class MediaType implements ArrayableInterface
     }
 
     /**
-     * @return \Finderly\OpenapiPhpLib\Model\Schema\ObjectSchema|\Shpock\API\Component\OpenApi\Model\Reference
+     * @return \Finderly\OpenapiPhpLib\Model\Schema\ObjectSchema|\Finderly\OpenapiPhpLib\Model\Reference
      */
     public function getSchema()
     {
@@ -50,7 +50,7 @@ class MediaType implements ArrayableInterface
     }
 
     /**
-     * @param \Finderly\OpenapiPhpLib\Model\Schema\SchemaInterface|\Shpock\API\Component\OpenApi\Model\Reference $schema
+     * @param \Finderly\OpenapiPhpLib\Model\Schema\SchemaInterface|\Finderly\OpenapiPhpLib\Model\Reference $schema
      * @return MediaType
      */
     public function setSchema($schema)

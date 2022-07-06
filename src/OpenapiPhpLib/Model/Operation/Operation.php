@@ -147,8 +147,8 @@ class Operation implements ArrayableInterface
 
     /**
      * @param string $httpStatusCode
-     * @param \Finderly\OpenapiPhpLib\Model\Responses\Response|\Shpock\API\Component\OpenApi\Model\Reference $response
-     * @return \Finderly\OpenapiPhpLib\Model\Responses\Responses
+     * @param \Finderly\OpenapiPhpLib\Model\Responses\Response|\\Finderly\OpenapiPhpLib\Model\Reference $response
+     * @return \Finderly\OpenapiPhpLib\Model\Responses\Response
      */
     public function pushResponseCode(string $httpStatusCode, $response): self
     {
