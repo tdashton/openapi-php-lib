@@ -35,32 +35,57 @@ When rendering the spec these variable types are recursed. An `object` is recurs
 
 # Example Usage
 
+## Export Schema as JSON
+
 ```php
-$openApi = new OpenApi(
-    OpenApi::OPENAPI_VERSION,
-    ['title' => 'My Spec\'s title', 'version' => 'My spec\'s version']
-);
+// Class: MyDomainOpenApiGenerator.php
 
-// add global schemas
-foreach ($mySchemas as $mySchema) {
-    // $mySchema is your domain logic
-    $openApi->getComponents()->addSchema(
-        $mySchema->translateToOpenapiPhpLibSchemaName(),
-        $mySchema->translateToOpenapiPhpLibSchema()
-    );
-}
+public class MyDomainOpenApiGenerator(/* inject your dependencies here */) implements \Finderly\OpenapiPhpLib\OpenApiGenerator
+{
+    /**
+     * your generation logic goes here, sample below
+     * @return array
+     */
+    public function generateSpecification(): array
+    {
+        $openApi = new \Finderly\OpenapiPhpLib\Model\OpenApi(
+        OpenApi::OPENAPI_VERSION,
+            ['title' => 'My Spec\'s title', 'version' => 'My spec\'s version']
+        );
 
-foreach ($myPaths as $myPath) {
-    // $myPath is your domain logic
-    $pathItem = new PathItem();
-    $pathItem->setParameters(
-        $myPath->translateToOpenapiPhpLibParameters()
-    );
+        // add global schemas
+        foreach ($mySchemas as $mySchema) {
+            // $mySchema is your domain logic
+            $openApi->getComponents()->addSchema(
+                $mySchema->translateToOpenapiPhpLibSchemaName(),
+                $mySchema->translateToOpenapiPhpLibSchema()
+            );
+        }
 
-    foreach ($myPath->getSupportedHttpOperations() as $method) {
-        $operation = $method->translateToOpenapiPhpLibOperation();
+        foreach ($myPaths as $myPath) {
+            // $myPath is your domain logic
+            $pathItem = new PathItem();
+            $pathItem->setParameters(
+                $myPath->translateToOpenapiPhpLibParameters()
+            );
 
-        $pathItem->setOperation(strtolower($method->getHttpMethod()), $operation);
+            foreach ($myPath->getSupportedHttpOperations() as $method) {
+                $operation = $method->translateToOpenapiPhpLibOperation();
+                $pathItem->setOperation(strtolower($method->getHttpMethod()), $operation);
+            }
+        }
+
+        return $openApi->toArray();
     }
 }
+
+// File: generation_command.php
+
+$openApiGenerator = new MyDomainOpenApiGenerator();
+
+$exporter = new \Finderly\OpenapiPhpLib\Exporter\OpenApiJsonExporter(
+    $openApiGenerator
+);
+
+$exporter->exportFile('/path/to/file.json');
 ```
