@@ -40,7 +40,7 @@ class OpenApi implements ArrayableInterface
      * @var array
      */
     protected $info = [
-        'title' => 'OpenapiPhpLib Generated API / OpenAPI Adapter',
+        'title' => 'Finderly API / OpenAPI Adapter',
         'version' => '0.0.9',
     ];
 
