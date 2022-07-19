@@ -12,27 +12,6 @@ Currently the library supports converting the OpenApi spec to an array which can
 
 [Support for YAML](https://spec.openapis.org/oas/v3.1.0.html#format) as per the spec is not yet directly supported.
 
-
-
-# Variable Types
-
-## Basic
-
-- `string`
-- `array `
-- `bool`
-- `int`
-
-When rendering the spec these variable types are treated as their standard variable type.
-
-## Objects
-
-- `object`
-- `object[]`
-- `object[k,v]`
-
-When rendering the spec these variable types are recursed. An `object` is recursed. An `object[]` is a treated as a simple array of objects. The ["Paths"](https://spec.openapis.org/oas/v3.1.0.html#paths-object) and any "Map[string, OpenApi Object Type" is handled as a `object[k,v]`.
-
 # Example Usage
 
 ## Export Schema as JSON
@@ -77,6 +56,8 @@ public class MyDomainOpenApiGenerator extends \Finderly\OpenapiPhpLib\OpenApiGen
                 $operation = $method->translateToOpenapiPhpLibOperation();
                 $pathItem->setOperation(strtolower($method->getHttpMethod()), $operation);
             }
+
+            $openApi->addPathItem($myPath->getHttpPath(), $pathItem);
         }
 
         return $openApi->toArray();
@@ -93,3 +74,49 @@ $exporter = new \Finderly\OpenapiPhpLib\Exporter\OpenApiJsonExporter(
 
 $exporter->exportFile('/path/to/file.json');
 ```
+
+# Contributing and Completeness
+
+## Supported OpenApi Objects
+
+The following objects are currently supported:
+
+- [body-object](https://spec.openapis.org/oas/v3.1.0.html#request-body-object)
+- [components-object](https://spec.openapis.org/oas/v3.1.0.html#components-object)
+- [item-object](https://spec.openapis.org/oas/v3.1.0.html#path-item-object)
+- [license-object](https://spec.openapis.org/oas/v3.1.0.html#license-object)
+- [openapi-object](https://spec.openapis.org/oas/v3.1.0.html#openapi-object)
+- [operation-object](https://spec.openapis.org/oas/v3.1.0.html#operation-object)
+- [parameter-object](https://spec.openapis.org/oas/v3.1.0.html#parameter-object)
+- [paths-object](https://spec.openapis.org/oas/v3.1.0.html#paths-object)
+- [reference-object](https://spec.openapis.org/oas/v3.1.0.html#reference-object)
+- [response-object](https://spec.openapis.org/oas/v3.1.0.html#response-object)
+- [schema-object](https://spec.openapis.org/oas/v3.1.0.html#schema-object)
+- [server-object](https://spec.openapis.org/oas/v3.1.0.html#server-object)
+- [type-object](https://spec.openapis.org/oas/v3.1.0.html#media-type-object)
+- [variable-object](https://spec.openapis.org/oas/v3.1.0.html#server-variable-object)
+
+If you do not see what you are looking for in this list, please contact us or contribute it!
+
+## Contributing
+
+New objects can be added relatively easily by mapping them using the following variables types.
+
+### Variable Types
+
+#### Basic
+
+- `string`
+- `array `
+- `bool`
+- `int`
+
+When rendering the spec these variable types are treated as their standard variable type.
+
+#### Objects
+
+- `object`
+- `object[]`
+- `object[k,v]`
+
+When rendering the spec these variable types are recursed. An `object` is recursed. An `object[]` is a treated as a simple array of objects. The ["Paths"](https://spec.openapis.org/oas/v3.1.0.html#paths-object) and any "Map[string, OpenApi Object Type" is handled as a `object[k,v]`.
