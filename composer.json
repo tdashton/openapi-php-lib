@@ -1,5 +1,5 @@
 {
-    "name": "finderly/openapi-php-lib",
+    "name": "tdashton/openapi-php-lib",
     "description": "A PHP Library to assist in creation of OpenApi Specifications",
     "type": "library",
     "license": "MIT",
