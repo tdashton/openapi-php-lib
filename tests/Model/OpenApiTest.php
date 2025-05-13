@@ -94,7 +94,7 @@ class OpenApiTest extends TestCase
                     "title" => "Finderly API / OpenAPI Adapter",
                     "version" => "0.0.9"
                 ],
-                'components' => [],
+                'components' => new \stdClass(),
             ],
             $openApi->toArray()
         );
@@ -118,7 +118,7 @@ class OpenApiTest extends TestCase
                     "title" => "Finderly API / OpenAPI Adapter",
                     "version" => "0.0.9"
                 ],
-                'components' => [],
+                'components' => new \stdClass(),
             ],
             $openApi->toArray()
         );
@@ -142,7 +142,7 @@ class OpenApiTest extends TestCase
                     "title" => "Finderly API / OpenAPI Adapter",
                     "version" => "0.0.9"
                 ],
-                'components' => [],
+                'components' => new \stdClass(),
             ],
             $openApi->toArray()
         );

@@ -89,7 +89,7 @@ trait ArrayableTrait
 
     /**
      * @param array $propertyDefinition
-     * @return array|null
+     * @return array|null|\stdClass
      */
     protected function getValue(array $propertyDefinition)
     {
