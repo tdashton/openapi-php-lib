@@ -32,6 +32,11 @@ class Parameter implements ArrayableInterface
     protected $description;
 
     /**
+     * @var bool
+     */
+    protected $required;
+
+    /**
      * @var \Finderly\OpenapiPhpLib\Model\Schema\ObjectSchema|\Finderly\OpenapiPhpLib\Model\Reference
      */
     protected $schema;
@@ -48,6 +53,10 @@ class Parameter implements ArrayableInterface
         [
             'name' => 'description',
             'type' => 'string',
+        ],
+        [
+            'name' => 'required',
+            'type' => 'boolean',
         ],
         [
             'name' => 'schema',
@@ -108,6 +117,18 @@ class Parameter implements ArrayableInterface
     public function setDescription(string $description): Parameter
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getRequired(): bool
+    {
+        return $this->required;
+    }
+
+    public function setRequired(bool $required): Parameter
+    {
+        $this->required = $required;
 
         return $this;
     }

@@ -68,7 +68,7 @@ public class MyDomainOpenApiGenerator extends \Finderly\OpenapiPhpLib\OpenApiGen
 
 $openApiGenerator = new MyDomainOpenApiGenerator();
 
-$exporter = new \Finderly\OpenapiPhpLib\Exporter\OpenApiJsonExporter(
+$exporter = new \Finderly\OpenapiPhpLib\Exporter\JsonEncoder(
     $openApiGenerator
 );
 

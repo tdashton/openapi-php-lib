@@ -111,7 +111,12 @@ trait ArrayableTrait
                 $ret = [];
                 foreach ($this->{$propertyName} as $key => $value) {
                     if ($value instanceof ArrayableInterface) {
-                        $ret[$key] = $value->toArray();
+                        if (empty($value)) {
+                            $ret[$key] = new \stdClass();
+                        } else {
+                            $ret[$key] = $value->toArray();
+                        }
+
                     } else {
                         $ret[$key] = $value;
                     }
@@ -119,7 +124,7 @@ trait ArrayableTrait
                 return $ret;
                 break;
             case 'object':
-                return $this->{$propertyName}->toArray();
+                return empty($ret = $this->{$propertyName}->toArray()) ? new \stdClass() : $ret;
                 break;
             case 'object[]':
                 return array_map(
