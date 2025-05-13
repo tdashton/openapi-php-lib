@@ -68,7 +68,7 @@ public class MyDomainOpenApiGenerator extends \Finderly\OpenapiPhpLib\OpenApiGen
 
 $openApiGenerator = new MyDomainOpenApiGenerator();
 
-$exporter = new \Finderly\OpenapiPhpLib\Exporter\OpenApiJsonExporter(
+$exporter = new \Finderly\OpenapiPhpLib\Exporter\JsonEncoder(
     $openApiGenerator
 );
 
@@ -120,3 +120,10 @@ When rendering the spec these variable types are treated as their standard varia
 - `object[k,v]`
 
 When rendering the spec these variable types are recursed. An `object` is recursed. An `object[]` is a treated as a simple array of objects. The ["Paths"](https://spec.openapis.org/oas/v3.1.0.html#paths-object) and any "Map[string, OpenApi Object Type" is handled as a `object[k,v]`.
+
+## Testing
+
+```bash
+docker run -it --rm --workdir /app --volume .:/app composer:2.8.1 composer install
+docker run -it --rm --workdir /app --volume .:/app php:8.1 php vendor/bin/phpunit tests/ 
+```
